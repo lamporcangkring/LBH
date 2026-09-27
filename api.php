@@ -13,10 +13,10 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec("CREATE DATABASE IF NOT EXISTS lawyer_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
     $pdo->exec("USE lawyer_app");
-    $pdo->exec("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(64) UNIQUE, password VARCHAR(255), role VARCHAR(32), full_name VARCHAR(128), email VARCHAR(128), avatar VARCHAR(255))");
-    $pdo->exec("CREATE TABLE IF NOT EXISTS cases (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), client_id INT NULL, client_name VARCHAR(128), status VARCHAR(32), description TEXT, court VARCHAR(128), case_number VARCHAR(128), start_date DATE NULL, assigned_to INT NULL)");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(64) UNIQUE, password VARCHAR(255), role VARCHAR(32), full_name VARCHAR(128), email VARCHAR(128))");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS cases (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), client_id INT NULL, client_name VARCHAR(128), status VARCHAR(32), description TEXT, court VARCHAR(128), case_number VARCHAR(32), start_date DATE, assigned_to INT)");
     $pdo->exec("CREATE TABLE IF NOT EXISTS case_timeline (id INT AUTO_INCREMENT PRIMARY KEY, case_id INT, date DATE, activity TEXT, `by` VARCHAR(128))");
-    $pdo->exec("CREATE TABLE IF NOT EXISTS tasks (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), date DATE, priority VARCHAR(16), status VARCHAR(16), type VARCHAR(32), case_id INT NULL, assigned_to INT NULL)");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS tasks (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), date DATE, priority VARCHAR(16), status VARCHAR(16), type VARCHAR(32), case_id INT NULL, assigned_to INT)");
     $pdo->exec("CREATE TABLE IF NOT EXISTS documents (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), type VARCHAR(32), case_id INT, date DATE, uploaded_by INT NULL)");
     $pdo->exec("CREATE TABLE IF NOT EXISTS courts (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(128) UNIQUE)");
     $pdo->exec("CREATE TABLE IF NOT EXISTS case_numbers (id INT AUTO_INCREMENT PRIMARY KEY, value VARCHAR(128) UNIQUE)");
@@ -56,7 +56,7 @@ try {
             }
             foreach ($seed['cases'] ?? [] as $c) {
                 $stmt = $pdo->prepare("INSERT INTO cases (id, title, client_id, client_name, status, description, court, case_number, start_date, assigned_to) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$c['id'] ?? null, $c['title'] ?? '', $c['client_id'] ?? null, $c['client_name'] ?? ($c['client'] ?? ''), $c['status'] ?? '', $c['description'] ?? '', $c['court'] ?? null, $c['case_number'] ?? null, isset($c['start_date']) ? $c['start_date'] : null, $c['assigned_to'] ?? null]);
+                $stmt->execute([$c['id'] ?? null, $c['title'] ?? '', $c['client_id'] ?? null, $c['client_name'] ?? ($c['client'] ?? ''), $c['status'] ?? '', $c['description'] ?? '', $c['court'] ?? null, $c['case_number'] ?? null, $c['start_date'] ?? null, $c['assigned_to'] ?? null]);
                 $cid = $c['id'] ?? $pdo->lastInsertId();
                 foreach ($c['timeline'] ?? [] as $t) {
                     $st = $pdo->prepare("INSERT INTO case_timeline (case_id, date, activity, `by`) VALUES (?, ?, ?, ?)");
@@ -163,7 +163,7 @@ if ($method === 'POST') {
                 echo json_encode(['success' => false, 'message' => 'Format file tidak didukung.']);
                 exit;
             }
-            $filename = uniqid('team_', true) . '.' . $ext;
+            $filename = 'article_' . time() . '_' . uniqid() . '.' . $ext;
             $dest = $uploadDir . $filename;
             if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
                 echo json_encode(['success' => true, 'path' => 'uploads/' . $filename]);
@@ -236,7 +236,7 @@ if ($method === 'POST') {
             } elseif ($action === 'add_case') {
                 $c = $input['case'];
                 $stmt = $pdo->prepare("INSERT INTO cases (title, client_id, client_name, status, description, court, case_number, start_date, assigned_to) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$c['title'] ?? '', null, $c['client_name'] ?? '', $c['status'] ?? 'Open', $c['description'] ?? '', $c['court'] ?? null, $c['case_number'] ?? null, $c['start_date'] ?? null, null]);
+                $stmt->execute([$c['title'] ?? '', null, $c['client_name'] ?? '', $c['status'] ?? 'Open', $c['description'] ?? '', $c['court'] ?? null, $c['case_number'] ?? null, $c['start_date'] ?? null, $c['assigned_to'] ?? null]);
             } elseif ($action === 'delete_case') {
                 $stmt = $pdo->prepare("DELETE FROM cases WHERE id=?");
                 $stmt->execute([$input['id']]);
@@ -347,7 +347,6 @@ if ($method === 'POST') {
             }
             
             if ($user) {
-                // Remove password from response
                 unset($user['password']);
                 echo json_encode(['success' => true, 'user' => $user]);
             } else {
