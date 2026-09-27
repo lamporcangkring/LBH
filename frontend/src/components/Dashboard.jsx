@@ -243,41 +243,41 @@ const Dashboard = ({ user, onLogout }) => {
         {/* Header Sidebar */}
         <div className="relative overflow-hidden border-b border-yellow-700/30 flex-shrink-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(234,179,8,0.08),transparent_60%)] pointer-events-none"></div>
-          <div className="relative pt-8 pb-5 px-6">
+          <div className="relative pt-4 pb-4 px-5">
             {/* Close button (mobile) */}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="absolute top-3 right-3 md:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+              className="absolute top-3 right-3 md:hidden w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white rounded hover:bg-slate-800"
             >
               ✕
             </button>
-            {/* Logo Circular dengan Border Emas */}
-            <div className="flex justify-center mb-4">
+            {/* Logo Circular naik ke atas - lebih kecil */}
+            <div className="flex justify-center mb-3">
               <div className="relative">
-                <img src="/logo lbh.jpeg" alt="Logo LBH PK" className="h-24 w-24 rounded-full object-cover border-[3px] border-yellow-500 shadow-[0_0_0_6px_rgba(234,179,8,0.1)]" />
+                <img src="/logo lbh.jpeg" alt="Logo LBH PK" className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover border-[2.5px] border-yellow-500 shadow-[0_0_0_5px_rgba(234,179,8,0.08)]" />
               </div>
             </div>
             {/* Judul */}
-            <h1 className="text-xl font-extrabold text-yellow-400 tracking-wide leading-tight text-center">
+            <h1 className="text-lg md:text-xl font-extrabold text-yellow-400 tracking-wide leading-tight text-center">
               PUNGGAWA KEADILAN
             </h1>
-            <p className="text-sm text-yellow-600/90 italic mt-1 text-center font-serif">
+            <p className="text-xs md:text-sm text-yellow-600/90 italic mt-0.5 text-center font-serif">
               Pro Justitia
             </p>
-            <p className="text-xs text-slate-400 mt-3 text-center font-medium tracking-wide">
+            <p className="text-[11px] text-slate-400 mt-2 text-center font-medium tracking-wide">
               Sistem Manajemen Kantor
             </p>
             {/* Badge Role */}
-            <div className="mt-4 flex justify-center">
-              <div className={`text-[10px] uppercase tracking-[0.15em] font-bold py-1.5 px-5 rounded-lg border ${isAdmin ? 'bg-slate-700/80 text-slate-200 border-slate-600/60' : 'bg-slate-700/60 text-slate-300 border-slate-600/50'}`}>
+            <div className="mt-3 flex justify-center">
+              <div className={`text-[10px] uppercase tracking-[0.15em] font-bold py-1 px-4 rounded-lg border ${isAdmin ? 'bg-slate-700/80 text-slate-200 border-slate-600/60' : 'bg-slate-700/60 text-slate-300 border-slate-600/50'}`}>
                 {(user?.role || 'USER').toUpperCase()}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Nav Menu */}
-        <nav className="flex-1 overflow-y-auto py-1 px-0 space-y-0 no-scrollbar min-h-0">
+        {/* Nav Menu - semua terlihat tanpa scroll */}
+        <nav className="flex-1 overflow-y-visible py-0 px-0 space-y-0 no-scrollbar min-h-0">
           {[
             ['home', 'Beranda'],
             ['tasks', 'Tugas & Sidang'],
@@ -290,7 +290,7 @@ const Dashboard = ({ user, onLogout }) => {
 
           {isAdmin && (
             <>
-              <div className="my-4 mx-6 border-t border-slate-800/80"></div>
+              <div className="my-2 mx-6 border-t border-slate-800/80"></div>
               {[
                 ['web', 'Manajemen Web'],
                 ['master', 'Master Data'],
@@ -303,8 +303,8 @@ const Dashboard = ({ user, onLogout }) => {
         </nav>
 
         {/* Tombol Keluar */}
-        <div className="p-5 pt-3 border-t border-slate-800/70 bg-slate-950 flex-shrink-0">
-          <button onClick={onLogout} className="group w-full relative overflow-hidden py-3 px-5 rounded-lg bg-red-600 hover:bg-red-700 shadow-lg shadow-red-900/30 hover:shadow-red-900/50 transition-all duration-200 text-base font-bold flex items-center justify-center gap-2 tracking-wide text-white">
+        <div className="p-4 pt-2 border-t border-slate-800/70 bg-slate-950 flex-shrink-0">
+          <button onClick={onLogout} className="group w-full relative overflow-hidden py-2.5 px-5 rounded-lg bg-red-600 hover:bg-red-700 shadow-lg shadow-red-900/30 hover:shadow-red-900/50 transition-all duration-200 text-sm font-bold flex items-center justify-center gap-2 tracking-wide text-white">
             <span className="relative z-10">Keluar</span>
           </button>
         </div>
@@ -902,7 +902,7 @@ const statusColor = (status, bg = 'bg', text = 'text', border) => {
 };
 
 const HexIcon = ({ active }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill={active ? '#eab308' : 'none'} stroke={active ? '#eab308' : '#64748b'} strokeWidth="2.5" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? '#eab308' : 'none'} stroke={active ? '#eab308' : '#64748b'} strokeWidth="2.5" strokeLinejoin="round">
     <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2" />
   </svg>
 );
@@ -911,7 +911,7 @@ const NavItem = ({ id: _id, label, active, onClick, admin }) => {
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center gap-4 py-3.5 pl-7 pr-6 text-lg font-semibold transition-all duration-150 group relative ${
+      className={`w-full flex items-center gap-3 py-2.5 pl-6 pr-5 text-base font-semibold transition-all duration-150 group relative ${
         active
           ? 'bg-slate-700/90 text-white'
           : admin
