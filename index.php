@@ -1214,8 +1214,21 @@
                                 <input type="text" x-model="newArticle.category" placeholder="Misal: Hukum Bisnis" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Gambar URL (opsional)</label>
-                                <input type="text" x-model="newArticle.image" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Gambar Cover <span class="text-xs text-slate-400 font-normal">(opsional)</span></label>
+                                <div class="mt-1 flex items-center gap-4">
+                                    <div class="h-20 w-20 shrink-0 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-200">
+                                        <template x-if="newArticle.image">
+                                            <img :src="newArticle.image" class="h-full w-full object-cover">
+                                        </template>
+                                        <template x-if="!newArticle.image">
+                                            <i class="fas fa-image text-2xl text-gray-400"></i>
+                                        </template>
+                                    </div>
+                                    <div class="flex-1">
+                                        <input type="file" @change="uploadArticleImage" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer border border-gray-200 rounded-xl" :disabled="articleImageUploading">
+                                        <p class="mt-2 text-xs text-slate-500" x-show="articleImageUploading"><i class="fas fa-spinner fa-spin mr-1"></i> Sedang mengupload...</p>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Konten <span class="text-red-500">*</span></label>
@@ -1697,6 +1710,7 @@
                 showTeamModal: false,
                 teamPhotoUploading: false,
                 galleryUploading: false,
+                articleImageUploading: false,
                 teamForm: { id: null, name: '', position: '', region: '', image: '' },
                 articles: [],
                 newArticle: {id: null, title: '', category: '', content: '', image: ''},
@@ -2064,6 +2078,33 @@
                 openEditArticle(a) {
                     this.newArticle = { id: a.id, title: a.title, category: a.category, content: a.content, image: a.image || '' };
                     this.showAddArticleModal = true;
+                },
+                async uploadArticleImage(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Ukuran file terlalu besar. Maksimal 5MB.');
+                        return;
+                    }
+                    this.articleImageUploading = true;
+                    const formData = new FormData();
+                    formData.append('action', 'upload_image');
+                    formData.append('file', file);
+                    try {
+                        const res = await fetch('api.php', { method: 'POST', body: formData });
+                        const result = await res.json();
+                        if (result.success) {
+                            this.newArticle.image = result.path;
+                        } else {
+                            alert('Upload gagal: ' + (result.message || 'Coba lagi.'));
+                        }
+                    } catch (e) {
+                        alert('Terjadi kesalahan saat upload.');
+                        console.error(e);
+                    } finally {
+                        this.articleImageUploading = false;
+                        event.target.value = '';
+                    }
                 },
                 async saveArticle() {
                     if (!this.newArticle.title) return;
