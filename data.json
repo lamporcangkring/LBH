@@ -1,0 +1,216 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "admin",
+            "password": "admin123",
+            "role": "admin",
+            "full_name": "Administrator",
+            "email": "admin@lawyerapp.com"
+        },
+        {
+            "id": 2,
+            "username": "lawyer1",
+            "password": "password123",
+            "role": "lawyer",
+            "full_name": "Pengacara Senior, S.H.",
+            "email": "lawyer1@lawyerapp.com",
+            "avatar": "uploads\/avatars\/u2_1766979119_law2.jpg"
+        },
+        {
+            "id": 3,
+            "username": "client1",
+            "password": "client123",
+            "role": "client",
+            "full_name": "Bapak Hartono",
+            "email": "hartono@email.com"
+        }
+    ],
+    "tasks": [],
+    "cases": [],
+    "documents": [],
+    "courts": [
+        "PN Jakarta Pusat",
+        "PN Jakarta Selatan",
+        "PA Jakarta Selatan",
+        "Niaga Jakarta Pusat"
+    ],
+    "case_numbers": [
+        "123\/Pdt.G\/2025\/PN.Jkt.Pst",
+        "456\/Pid.B\/2025\/PN.Jkt.Sel",
+        "101\/Pdt.G\/2024\/PA.JS"
+    ],
+    "start_dates": [
+        "2025-01-01",
+        "2025-01-02",
+        "2024-11-15"
+    ],
+    "stats": {
+        "total": 0,
+        "pending": 0,
+        "completed": 0
+    },
+    "articles": [
+        {
+            "id": 1001,
+            "category": "Hukum Pidana",
+            "title": "Memahami Hak Tersangka dalam Proses Penyidikan",
+            "content": "Setiap warga negara yang ditetapkan sebagai tersangka memiliki hak-hak fundamental yang dijamin oleh KUHAP Pasal 50-68. Di antaranya adalah hak untuk segera diperiksa, hak mendapatkan bantuan hukum sejak tahap penyelidikan, hak untuk diberitahukan dakwaan, dan hak untuk tidak dipaksa mengakui kesalahan. Pemahaman terhadap hak-hak ini sangat penting agar proses peradilan berjalan adil dan berkeadilan bagi semua pihak.",
+            "image": "43d381da0b5c54bc3719ab5de058d2fb.jpg",
+            "created_at": "2026-09-20"
+        },
+        {
+            "id": 1002,
+            "category": "Hukum Perdata",
+            "title": "Cara Menyelesaikan Sengketa Waris Tanpa Pengadilan",
+            "content": "Mediasi keluarga seringkali menjadi jalan keluar terbaik untuk menghindari konflik berkepanjangan dalam pembagian harta warisan. Berdasarkan KUH Perdata dan Kompilasi Hukum Islam, pembagian waris dapat dilakukan secara musyawarah kekeluargaan yang kemudian dituangkan dalam akta notaris. Langkah ini jauh lebih hemat biaya, waktu, dan menjaga hubungan silaturahmi antar anggota keluarga.",
+            "image": "Clover Leaf.avif",
+            "created_at": "2026-09-18"
+        },
+        {
+            "id": 1003,
+            "category": "Hukum Ketenagakerjaan",
+            "title": "Langkah Hukum Jika Terkena PHK Sepihak",
+            "content": "Pemutusan Hubungan Kerja (PHK) sepihak oleh perusahaan tanpa alasan yang sah merupakan pelanggaran UU Cipta Kerja dan PP No. 35 Tahun 2021. Pekerja yang menjadi korban PHK sepihak berhak menempuh jalur bipartit, mediasi Disnaker, hingga gugatan ke Pengadilan Hubungan Industrial (PHI). Hak pesangon, uang penghargaan masa kerja, dan uang penggantian hak wajib dibayarkan sesuai ketentuan yang berlaku.",
+            "image": "vector-justice-lawyer-logo-and-symbols-template-icons-app.jpg",
+            "created_at": "2026-09-15"
+        },
+        {
+            "id": 1004,
+            "category": "Hukum Bisnis",
+            "title": "Pentingnya Perjanjian Kerahasiaan (NDA) dalam Bisnis",
+            "content": "Non-Disclosure Agreement (NDA) adalah instrumen hukum vital untuk melindungi rahasia dagang, formula bisnis, dan informasi strategis perusahaan. Berdasarkan UU No. 30 Tahun 2000 tentang Rahasia Dagang, pemilik informasi memiliki hak eksklusif untuk menggunakan sendiri atau memberikan lisensi kepada pihak lain. NDA yang disusun dengan baik menjadi tameng hukum pertama dalam setiap kolaborasi bisnis.",
+            "image": "law2.jpg",
+            "created_at": "2026-09-12"
+        },
+        {
+            "id": 1005,
+            "category": "Hukum Keluarga",
+            "title": "Prosedur Perceraian dan Hak Asuh Anak di Indonesia",
+            "content": "Perceraian di Indonesia dapat dilakukan melalui Pengadilan Agama (bagi Muslim) atau Pengadilan Negeri (bagi non-Muslim). Proses dimulai dari pengajuan gugatan, mediasi wajib oleh hakim mediator, persidangan, hingga putusan hakim. Dalam hal hak asuh anak di bawah umur, pengadilan umumnya memberikan hak hadhanah kepada ibu dengan tetap mempertimbangkan kepentingan terbaik anak sesuai UU Perlindungan Anak.",
+            "image": "43d381da0b5c54bc3719ab5de058d2fb.jpg",
+            "created_at": "2026-09-10"
+        },
+        {
+            "id": 1006,
+            "category": "Hukum Agraria",
+            "title": "Sengketa Tanah: Memahami Sertifikat Hak Milik vs HGU",
+            "content": "Sertifikat Hak Milik (SHM) merupakan bukti kepemilikan tanah terkuat di Indonesia berdasarkan UUPA. Berbeda dengan Hak Guna Usaha (HGU) yang bersifat sementara dan diberikan untuk keperluan pertanian atau perkebunan. Banyak sengketa tanah muncul akibat tumpang tindih SHM dan HGU, terutama di daerah perkebunan. Penyelesaian sengketa ini memerlukan pendekatan hukum yang komprehensif melalui BPN, mediasi, atau litigasi.",
+            "image": "Clover Leaf.avif",
+            "created_at": "2026-09-08"
+        }
+    ],
+    "teams": [
+        {
+            "id": 1,
+            "name": "Irawansyah",
+            "position": "Dewan Pembina",
+            "region": "Prov. Sumsel & Lampung",
+            "image": "tim\/tim9.jpeg"
+        },
+        {
+            "id": 2,
+            "name": "Nur Susanto",
+            "position": "Regional Manager",
+            "region": "Prov. Sumatera Selatan",
+            "image": "tim\/tim 7.jpeg"
+        },
+        {
+            "id": 3,
+            "name": "Nur Susanto",
+            "position": "Regional Manager",
+            "region": "Prov. Lampung",
+            "image": "tim\/tim0.jpeg"
+        },
+        {
+            "id": 4,
+            "name": "Angga Endarko",
+            "position": "Sekretaris",
+            "region": "DPD Sumatera Selatan",
+            "image": "tim\/tim3.jpeg"
+        },
+        {
+            "id": 5,
+            "name": "Benny Hartawan, S.E, M.M",
+            "position": "Bendahara",
+            "region": "DPD Sumatera Selatan",
+            "image": "tim\/tim1.jpeg"
+        },
+        {
+            "id": 6,
+            "name": "Junaidi",
+            "position": "Sekretaris",
+            "region": "Korwil II OKU Raya",
+            "image": "tim\/tim10.jpeg"
+        },
+        {
+            "id": 7,
+            "name": "Agus Suherman",
+            "position": "Bendahara",
+            "region": "Korwil II OKU Raya",
+            "image": "tim\/tim4.jpeg"
+        },
+        {
+            "id": 8,
+            "name": "Hendra Yulianto, S.H, M.H",
+            "position": "Divisi Litigasi",
+            "region": "",
+            "image": "tim\/tim.jpeg"
+        },
+        {
+            "id": 9,
+            "name": "Torik Musadat",
+            "position": "Divisi Non Litigasi",
+            "region": "",
+            "image": "tim\/tim6.jpeg"
+        },
+        {
+            "id": 10,
+            "name": "Wengky Fernando",
+            "position": "Divisi Humas",
+            "region": "",
+            "image": "tim\/tim5.jpeg"
+        },
+        {
+            "id": "1790493401971",
+            "name": "teguh giana",
+            "position": "semua jabatan",
+            "region": "jenggung",
+            "image": "uploads\/team_6ab8c2d81ea914.99688112.jpeg"
+        }
+    ],
+    "gallery": [
+        {
+            "id": 1,
+            "image": "galeri\/WhatsApp Image 2026-09-21 at 19.12.05 (2).jpeg",
+            "css_class": "md:col-span-2 md:row-span-2"
+        },
+        {
+            "id": 2,
+            "image": "galeri\/WhatsApp Image 2026-08-21 at 17.03.20 (1).jpeg",
+            "css_class": ""
+        },
+        {
+            "id": 3,
+            "image": "galeri\/WhatsApp Image 2026-09-21 at 19.12.05 (1).jpeg",
+            "css_class": ""
+        },
+        {
+            "id": 4,
+            "image": "galeri\/WhatsApp Image 2026-08-21 at 17.03.20 (2).jpeg",
+            "css_class": ""
+        },
+        {
+            "id": 5,
+            "image": "WhatsApp Image 2026-08-21 at 17.03.20.jpeg",
+            "css_class": ""
+        },
+        {
+            "image": "uploads\/team_6ab8c28c06ab77.80729515.avif",
+            "css_class": "",
+            "id": "1790493324123"
+        }
+    ],
+    "legalitas": [],
+    "legalitas_images": []
+}
