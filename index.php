@@ -413,10 +413,10 @@
             </button>
             <div class="text-center mb-8 mt-2">
                 <div class="mb-4">
-                    <img src="lawyer-attorney-logo-vector.jpg" alt="Logo" class="h-24 mx-auto rounded-full object-cover">
+                    <img src="logo lbh.jpeg" alt="Logo LBH" class="h-24 mx-auto object-contain">
                 </div>
-                <h1 class="text-2xl font-bold text-slate-800">LawyerApp</h1>
-                <p class="text-slate-500 text-sm">Sistem Manajemen Kantor Hukum</p>
+                <h1 class="text-2xl font-bold text-slate-800">Lembaga Bantuan Hukum</h1>
+                <p class="text-slate-500 text-sm">Punggawa Keadilan</p>
             </div>
 
             <form @submit.prevent="login">
@@ -465,13 +465,13 @@
     
     <!-- DESKTOP SIDEBAR (Hidden on Mobile) -->
     <aside class="hidden md:flex flex-col w-64 h-screen fixed bg-primary text-white shadow-xl z-50">
-        <div class="p-6 text-center border-b border-slate-700">
-            <div class="flex justify-center mb-2">
-                <img src="lawyer-attorney-logo-vector.jpg" alt="Logo" class="h-16 w-16 rounded-full object-cover">
+        <div class="p-6 text-center border-b border-slate-700 bg-slate-900">
+            <div class="flex justify-center mb-3">
+                <img src="logo lbh.jpeg" alt="Logo LBH" class="h-16 object-contain bg-white rounded p-1">
             </div>
-            <h1 class="text-2xl font-bold tracking-wider">LawyerApp</h1>
-            <p class="text-xs text-slate-400 mt-1">Sistem Manajemen Hukum</p>
-            <div class="mt-2 text-xs bg-slate-700 py-1 px-2 rounded inline-block uppercase tracking-wide" x-text="currentUser?.role"></div>
+            <h1 class="text-xl font-bold tracking-wider text-yellow-500">LBH</h1>
+            <p class="text-xs text-slate-300 mt-1">Punggawa Keadilan</p>
+            <div class="mt-3 text-xs bg-slate-700 py-1 px-2 rounded inline-block uppercase tracking-wide font-semibold shadow-inner" x-text="currentUser?.role"></div>
         </div>
         <nav class="flex-1 overflow-y-auto py-4">
             <a href="#" @click.prevent="setTab('home')" :class="tab === 'home' ? 'bg-slate-700 border-r-4 border-blue-500' : 'hover:bg-slate-700'" class="block px-6 py-3 transition-all">
@@ -519,8 +519,8 @@
         <header class="bg-white shadow-sm sticky top-0 z-40 px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <!-- Mobile Logo -->
-                <div class="md:hidden mr-2">
-                    <img src="lawyer-attorney-logo-vector.jpg" alt="Logo" class="h-8 w-8 rounded-full object-cover">
+                <div class="md:hidden mr-3">
+                    <img src="logo lbh.jpeg" alt="Logo" class="h-8 object-contain bg-white rounded p-0.5">
                 </div>
                 <h2 class="text-xl font-semibold text-slate-800" x-text="pageTitle"></h2>
             </div>
