@@ -1133,66 +1133,100 @@
 
             <!-- CONTENT TAB -->
             <div x-show="tab === 'content'" x-transition.opacity x-cloak>
-                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-bold">Manajemen Artikel Web</h3>
-                    <button @click="showAddArticleModal = true" class="bg-primary text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-slate-700 transition">
-                        <i class="fas fa-plus mr-1"></i> Tulis Artikel
-                    </button>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <table class="w-full text-left text-sm text-gray-600">
-                        <thead class="bg-gray-50 text-gray-800 font-bold uppercase text-xs border-b">
-                            <tr>
-                                <th class="px-6 py-4">Judul Artikel</th>
-                                <th class="px-6 py-4">Kategori</th>
-                                <th class="px-6 py-4">Tanggal</th>
-                                <th class="px-6 py-4 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <template x-for="a in articles" :key="a.id">
-                                <tr class="hover:bg-gray-50 transition">
-                                    <td class="px-6 py-4 font-bold text-gray-800" x-text="a.title"></td>
-                                    <td class="px-6 py-4"><span class="bg-gray-100 px-2 py-1 rounded text-xs uppercase" x-text="a.category"></span></td>
-                                    <td class="px-6 py-4" x-text="a.created_at"></td>
-                                    <td class="px-6 py-4 text-right">
-                                        <button @click="deleteArticle(a.id)" class="text-gray-400 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+                    <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg"><i class="fas fa-newspaper text-blue-500 mr-2"></i> Manajemen Artikel</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Kelola artikel yang tampil di website</p>
+                        </div>
+                        <button @click="openAddArticle()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition flex items-center gap-2">
+                            <i class="fas fa-plus"></i> Tulis Artikel
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-left">Cover</th>
+                                    <th class="px-6 py-3 text-left">Judul Artikel</th>
+                                    <th class="px-6 py-3 text-left">Kategori</th>
+                                    <th class="px-6 py-3 text-left">Tanggal</th>
+                                    <th class="px-6 py-3 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                <template x-for="a in articles" :key="a.id">
+                                    <tr class="hover:bg-slate-50 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <img :src="a.image || 'https://ui-avatars.com/api/?name=Article&background=e2e8f0'" class="w-12 h-12 rounded object-cover border border-gray-200">
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="font-semibold text-slate-800 text-sm" x-text="a.title"></div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2.5 py-1 bg-gray-100 text-gray-700 rounded-lg text-xs font-medium uppercase" x-text="a.category"></span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-slate-500" x-text="a.created_at"></span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex justify-end gap-2">
+                                                <button @click="openEditArticle(a)" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit">
+                                                    <i class="fas fa-pen text-sm"></i>
+                                                </button>
+                                                <button @click="deleteArticle(a.id)" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
+                                                    <i class="fas fa-trash-alt text-sm"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <tr x-show="articles.length === 0">
+                                    <td colspan="5" class="px-6 py-12 text-center text-slate-400">
+                                        <i class="fas fa-newspaper text-4xl mb-3 block opacity-30"></i>
+                                        Belum ada artikel. Klik "Tulis Artikel" untuk mulai.
                                     </td>
                                 </tr>
-                            </template>
-                            <tr x-show="articles.length === 0">
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-400">Belum ada artikel.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
-            <!-- ADD ARTICLE MODAL -->
-            <div x-show="showAddArticleModal" class="fixed inset-0 z-[60] flex items-end md:items-center justify-center" x-cloak>
-                <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" @click="showAddArticleModal = false"></div>
-                <div class="bg-white w-full md:w-[600px] md:rounded-xl rounded-t-2xl p-6 relative transform transition-transform duration-300">
-                    <h3 class="text-xl font-bold mb-4">Tulis Artikel Baru</h3>
-                    <form @submit.prevent="addArticle">
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Judul</label>
-                            <input type="text" x-model="newArticle.title" class="w-full px-4 py-2 border rounded-lg" required>
+            <!-- ADD/EDIT ARTICLE MODAL -->
+            <div x-show="showAddArticleModal" class="fixed inset-0 z-[70] flex items-center justify-center" x-cloak>
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="showAddArticleModal = false"></div>
+                <div class="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6 mx-4"
+                     x-transition:enter="scale-95 opacity-0"
+                     x-transition:enter-end="scale-100 opacity-100">
+                    <div class="flex justify-between items-center mb-5">
+                        <h3 class="text-xl font-bold text-slate-800" x-text="newArticle.id ? 'Edit Artikel' : 'Tulis Artikel Baru'"></h3>
+                        <button @click="showAddArticleModal = false" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-lg"></i></button>
+                    </div>
+                    <form @submit.prevent="saveArticle">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Judul <span class="text-red-500">*</span></label>
+                                <input type="text" x-model="newArticle.title" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Kategori <span class="text-red-500">*</span></label>
+                                <input type="text" x-model="newArticle.category" placeholder="Misal: Hukum Bisnis" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Gambar URL (opsional)</label>
+                                <input type="text" x-model="newArticle.image" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Konten <span class="text-red-500">*</span></label>
+                                <textarea x-model="newArticle.content" rows="6" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" required></textarea>
+                            </div>
                         </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Kategori (Misal: Hukum Bisnis)</label>
-                            <input type="text" x-model="newArticle.category" class="w-full px-4 py-2 border rounded-lg" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Gambar URL (Contoh: law2.jpg)</label>
-                            <input type="text" x-model="newArticle.image" class="w-full px-4 py-2 border rounded-lg">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Konten</label>
-                            <textarea x-model="newArticle.content" rows="4" class="w-full px-4 py-2 border rounded-lg" required></textarea>
-                        </div>
-                        <div class="flex justify-end gap-2">
-                            <button type="button" @click="showAddArticleModal = false" class="px-4 py-2 bg-gray-100 rounded-lg">Batal</button>
-                            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg">Simpan & Publikasikan</button>
+                        <div class="flex justify-end gap-3 mt-6">
+                            <button type="button" @click="showAddArticleModal = false" class="px-5 py-2.5 bg-gray-100 text-slate-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition">Batal</button>
+                            <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition">
+                                <i class="fas fa-save mr-1"></i> Simpan
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -1665,7 +1699,7 @@
                 galleryUploading: false,
                 teamForm: { id: null, name: '', position: '', region: '', image: '' },
                 articles: [],
-                newArticle: {title: '', category: '', content: '', image: ''},
+                newArticle: {id: null, title: '', category: '', content: '', image: ''},
                 userForm: { id: null, role: 'lawyer', username: '', full_name: '', email: '', password: '' },
                 
                 init() {
@@ -2023,20 +2057,27 @@
                     } catch (e) { console.error(e); }
                 },
 
-                
-                async addArticle() {
+                openAddArticle() {
+                    this.newArticle = { id: null, title: '', category: '', content: '', image: '' };
+                    this.showAddArticleModal = true;
+                },
+                openEditArticle(a) {
+                    this.newArticle = { id: a.id, title: a.title, category: a.category, content: a.content, image: a.image || '' };
+                    this.showAddArticleModal = true;
+                },
+                async saveArticle() {
                     if (!this.newArticle.title) return;
+                    const action = this.newArticle.id ? 'update_article' : 'add_article';
                     try {
                         const res = await fetch('api.php', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'add_article', article: this.newArticle })
+                            body: JSON.stringify({ action, article: this.newArticle })
                         });
                         const result = await res.json();
                         if (result.success) {
                             this.updateLocalData(result.data);
                             this.showAddArticleModal = false;
-                            this.newArticle = {title: '', category: '', content: '', image: ''};
                         }
                     } catch (e) { console.error(e); }
                 },

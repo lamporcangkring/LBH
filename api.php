@@ -306,6 +306,10 @@ if ($method === 'POST') {
                 $a = $input['article'];
                 $stmt = $pdo->prepare("INSERT INTO articles (category, title, content, image, created_at) VALUES (?, ?, ?, ?, ?)");
                 $stmt->execute([$a['category'] ?? '', $a['title'] ?? '', $a['content'] ?? '', $a['image'] ?? '', date('Y-m-d')]);
+            } elseif ($action === 'update_article') {
+                $a = $input['article'];
+                $stmt = $pdo->prepare("UPDATE articles SET category=?, title=?, content=?, image=? WHERE id=?");
+                $stmt->execute([$a['category'] ?? '', $a['title'] ?? '', $a['content'] ?? '', $a['image'] ?? '', $a['id']]);
             } elseif ($action === 'delete_article') {
                 $stmt = $pdo->prepare("DELETE FROM articles WHERE id=?");
                 $stmt->execute([$input['id']]);
@@ -437,6 +441,17 @@ if ($method === 'POST') {
             $a['id'] = time();
             $a['created_at'] = date('Y-m-d');
             $data['articles'][] = $a;
+        } elseif ($action === 'update_article') {
+            $a = $input['article'];
+            foreach ($data['articles'] as &$x) {
+                if ($x['id'] == $a['id']) {
+                    $x['title'] = $a['title'] ?? $x['title'];
+                    $x['category'] = $a['category'] ?? $x['category'];
+                    $x['content'] = $a['content'] ?? $x['content'];
+                    $x['image'] = $a['image'] ?? $x['image'];
+                    break;
+                }
+            }
         } elseif ($action === 'delete_article') {
             $idToDelete = $input['id'];
             $data['articles'] = array_values(array_filter($data['articles'], function($a) use ($idToDelete) {
